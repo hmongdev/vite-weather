@@ -1,4 +1,5 @@
-import Search from './components/search';
+import SearchBar from './components/searchBar';
+import { CurrentWeather } from './components/currentWeather';
 
 const App = () => {
 	const handleOnSearchChange = (searchData) => {
@@ -6,8 +7,12 @@ const App = () => {
 	};
 
 	return (
-		<div className=" max-sm text-left p-5">
-			<Search onSearchChange={handleOnSearchChange} />
+		<div
+			id="viewPort"
+			className="w-screen h-screen text-left bg-[#121418]"
+		>
+			<SearchBar />
+			<CurrentWeather />
 		</div>
 	);
 };
