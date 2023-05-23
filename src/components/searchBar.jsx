@@ -23,8 +23,9 @@ const SearchBar = () => {
 				});
 			});
 		}
-		console.log(`userLocation is:`, userLocation);
+		console.log(navigator);
 	};
+	console.log(`userLocation is:`, userLocation);
 
 	async function loadOptions(inputValue) {
 		//request
@@ -57,7 +58,7 @@ const SearchBar = () => {
 	return (
 		<div
 			id="searchBarContainer"
-			className="flex gap-5 w-full h-[10%] border-2 py-10 justify-center items-center"
+			className="flex gap-5 w-full h-[10%] py-10 justify-center items-center"
 		>
 			<div className="min-w-[50%]">
 				<AsyncPaginate
