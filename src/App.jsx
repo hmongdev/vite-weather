@@ -2,10 +2,6 @@ import SearchBar from './components/searchBar';
 import { CurrentWeather } from './components/currentWeather';
 
 const App = () => {
-	const handleOnSearchChange = (searchData) => {
-		console.log(searchData);
-	};
-
 	return (
 		<div
 			id="viewPort"
