@@ -3,7 +3,7 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 import { GEO_API_URL, geoApiOptions } from '../api/geoCitiesApi';
 import { UilLocationPoint } from '@iconscout/react-unicons';
 
-const SearchBar = ({ onSearchChange, onUserLocation }) => {
+const SearchBar = ({ onSearchChange, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
 	const handleSearch = (searchData) => {
@@ -51,7 +51,7 @@ const SearchBar = ({ onSearchChange, onUserLocation }) => {
 			</div>
 			<button>
 				<UilLocationPoint
-					onClick={onUserLocation}
+					onClick={onLocationChange}
 					size={30}
 					className="text-white cursor-pointer transition ease-out hover:text-purple-200 hover:scale-125"
 				/>

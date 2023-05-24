@@ -7,16 +7,16 @@ const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [current, setCurrent] = useState(null);
 	const [forecast, setForecast] = useState(null);
-	const [userLocation, setUserLocation] = useState({});
+	const [location, setLocation] = useState({});
 
-	//userLocation
-	const handleLocationClick = () => {
+	//location
+	const handleLocation = () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition((position) => {
 				let lat = position.coords.latitude;
 				let lon = position.coords.longitude;
 
-				setUserLocation({
+				setLocation({
 					lat,
 					lon,
 				});
@@ -24,10 +24,12 @@ const App = () => {
 		}
 	};
 
-	const handleOnSearchChange = (searchData) => {
+	const handleSearch = (searchData) => {
 		const [lat, lon] = searchData.value.split(' ');
-		setUserLocation({ lat: Number(lat), lon: Number(lon) });
+		setLocation({ lat: Number(lat), lon: Number(lon) });
 	};
+
+	console.log(location);
 
 	return (
 		<div
@@ -35,8 +37,8 @@ const App = () => {
 			className="w-screen h-screen text-left bg-[#121418]"
 		>
 			<SearchBar
-				onSearchChange={handleOnSearchChange}
-				onUserLocation={handleLocationClick}
+				onSearchChange={handleSearch}
+				onLocationChange={handleLocation}
 			/>
 			<CurrentWeather />
 		</div>
