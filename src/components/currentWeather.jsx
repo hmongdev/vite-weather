@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { OPEN_API_ICON } from '../api/openWeatherApi';
 
-export const CurrentWeather = ({}) => {
-	const [fahrenheit, setFahrenheit] = useState('');
+export const CurrentWeather = ({ current, forecast, setUnits }) => {
 	const [celsius, setCelsius] = useState('');
+	const [fahrenheit, setFahrenheit] = useState('');
 
 	const selectUnit = (event) => {
 		event.preventDefault();
@@ -12,6 +12,7 @@ export const CurrentWeather = ({}) => {
 				'text-purple-300 underline underline-offset-4'
 			);
 			setCelsius('text-white');
+			setUnits('imperial');
 		}
 
 		if (event.target.id === 'celsius') {
@@ -19,20 +20,23 @@ export const CurrentWeather = ({}) => {
 				'text-purple-300 underline underline-offset-4'
 			);
 			setFahrenheit('text-white');
+			setUnits('metric');
 		}
 	};
 
 	return (
 		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
 			<div className="flex w-[65%] justify-between mx-auto text-gray-400">
-				<h1>Chanhassen, US</h1>
+				<h1>{current.city}</h1>
 				<h1>Monday, May 22</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
 				<div className="flex w-1/2 justify-center gap-1 p-2">
 					<img
-						// src={iconUrlFromCode(item.icon)}
+						src={OPEN_API_ICON(
+							current.weather[0].icon
+						)}
 						alt="weather-icon"
 						className="w-[6rem] h-[6rem]"
 					/>
@@ -64,7 +68,9 @@ export const CurrentWeather = ({}) => {
 					</div>
 				</div>
 				<div className="flex w-1/2 flex-col justify-center items-center gap-2">
-					<h1 className="text-3xl">Clear Sky</h1>
+					<h1 className="text-3xl capitalize">
+						{current.weather[0].description}
+					</h1>
 					<div className="flex justify-between w-3/5">
 						<p>Humidity</p>
 						<p>60%</p>
