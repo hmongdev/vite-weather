@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { OPEN_API_ICON } from '../api/openWeatherApi';
 
-export const CurrentWeather = () => {
+export const CurrentWeather = ({}) => {
 	const [fahrenheit, setFahrenheit] = useState('');
 	const [celsius, setCelsius] = useState('');
 
@@ -31,7 +32,7 @@ export const CurrentWeather = () => {
 			<div className="flex justify-between min-h-[10rem]">
 				<div className="flex w-1/2 justify-center gap-1 p-2">
 					<img
-						src=""
+						// src={iconUrlFromCode(item.icon)}
 						alt="weather-icon"
 						className="w-[6rem] h-[6rem]"
 					/>
@@ -78,8 +79,8 @@ export const CurrentWeather = () => {
 					</div>
 				</div>
 			</div>
-			<div className="min-h-[10rem]">hello world</div>
-			<div className="min-h-[10rem]">hello world</div>
+			{/* <div className="min-h-[10rem]">hello world</div> */}
+			{/* <div className="min-h-[10rem]">hello world</div> */}
 		</div>
 	);
 };

@@ -3,29 +3,13 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 import { GEO_API_URL, geoApiOptions } from '../api/geoCitiesApi';
 import { UilLocationPoint } from '@iconscout/react-unicons';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearchChange, onUserLocation }) => {
 	const [search, setSearch] = useState(null);
-	const [userLocation, setUserLocation] = useState({});
 
 	const handleSearch = (searchData) => {
 		setSearch(searchData);
+		onSearchChange(searchData);
 	};
-
-	const handleLocationClick = () => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				let lat = position.coords.latitude;
-				let lon = position.coords.longitude;
-
-				setUserLocation({
-					lat,
-					lon,
-				});
-			});
-		}
-		console.log(navigator);
-	};
-	console.log(`userLocation is:`, userLocation);
 
 	async function loadOptions(inputValue) {
 		//request
@@ -40,10 +24,6 @@ const SearchBar = () => {
 			//return
 			return {
 				options: response.data.map((city) => {
-					console.log(
-						`response in loadOptions:`,
-						city
-					);
 					return {
 						value: `${city.latitude} ${city.longitude}`,
 						label: `${city.name}, ${city.region} - ${city.country}`,
@@ -71,7 +51,7 @@ const SearchBar = () => {
 			</div>
 			<button>
 				<UilLocationPoint
-					onClick={handleLocationClick}
+					onClick={onUserLocation}
 					size={30}
 					className="text-white cursor-pointer transition ease-out hover:text-purple-200 hover:scale-125"
 				/>
