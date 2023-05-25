@@ -7,7 +7,10 @@ import { fetchFinalWeatherData } from './api/openWeatherApi';
 const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(null);
-	const [location, setLocation] = useState({});
+	const [location, setLocation] = useState({
+		lat: 44.8903,
+		lon: -93.5516,
+	});
 
 	useEffect(() => {
 		handleLocation();
@@ -22,15 +25,17 @@ const App = () => {
 
 	//location
 	const handleLocation = () => {
-		navigator.geolocation.getCurrentPosition((position) => {
-			let lat = position.coords.latitude;
-			let lon = position.coords.longitude;
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition((position) => {
+				let lat = position.coords.latitude;
+				let lon = position.coords.longitude;
 
-			setLocation({
-				lat,
-				lon,
+				setLocation({
+					lat,
+					lon,
+				});
 			});
-		});
+		}
 		fetchWeather();
 	};
 

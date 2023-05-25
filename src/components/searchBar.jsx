@@ -7,32 +7,29 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
 	const handleCitySelect = (searchData) => {
+		console.log(`searchData`, searchData);
 		onSelectCity(searchData);
 	};
 
 	async function loadOptions(inputValue) {
 		//request
-		try {
-			const request = await fetch(
-				`${GEO_API_URL}/cities?namePrefix=${inputValue}`,
-				geoApiOptions
-			);
-			//response
-			const response = await request.json();
+		const response = await fetch(
+			`${GEO_API_URL}/cities?namePrefix=${inputValue}`,
+			geoApiOptions
+		).then((res) => res.json());
 
-			//return
-			return {
-				options: response?.data.map((city) => {
-					return {
-						lat: city.latitude,
-						lon: city.longitude,
-						label: `${city.name}, ${city.region} - ${city.countryCode}`,
-					};
-				}),
-			};
-		} catch (error) {
-			console.error(`Error:`, error);
-		}
+		console.log(`response`, response);
+
+		//return
+		return {
+			options: response.data.map((city) => {
+				return {
+					lat: city.latitude,
+					lon: city.longitude,
+					label: `${city.city}, ${city.region} - ${city.countryCode}`,
+				};
+			}),
+		};
 	}
 
 	return (
