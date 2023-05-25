@@ -23,7 +23,7 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 
 			//return
 			return {
-				options: response.data.map((city) => {
+				options: response?.data.map((city) => {
 					return {
 						lat: city.latitude,
 						lon: city.longitude,

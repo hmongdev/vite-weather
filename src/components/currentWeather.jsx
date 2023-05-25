@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { OPEN_API_ICON } from '../api/openWeatherApi';
 
 export const CurrentWeather = ({
-	city,
+	units,
 	weather: {
 		lat,
 		lon,
 		dt,
+		cityName,
 		feels_like,
 		humidity,
 		temp,
@@ -22,64 +23,75 @@ export const CurrentWeather = ({
 	},
 	setUnits,
 }) => {
-	const [celsius, setCelsius] = useState('');
-	const [fahrenheit, setFahrenheit] = useState('');
+	const [celsius, selectCelsius] = useState('');
+	const [fahrenheit, selectFahrenheit] = useState('');
 
-	const selectUnit = (event) => {
-		event.preventDefault();
-		if (event.target.id === 'fahrenheit') {
-			setFahrenheit(
+	const handleUnits = (event) => {
+		const selectedUnit = event.target.name;
+		setUnits(selectedUnit);
+
+		if (selectedUnit === 'imperial') {
+			selectFahrenheit(
 				'text-purple-300 underline underline-offset-4'
 			);
-			setCelsius('text-white');
-			setUnits('imperial');
-		}
-
-		if (event.target.id === 'celsius') {
-			setCelsius(
+			selectCelsius('text-white');
+		} else if (selectedUnit === 'metric') {
+			selectCelsius(
 				'text-purple-300 underline underline-offset-4'
 			);
-			setFahrenheit('text-white');
-			setUnits('metric');
+			selectFahrenheit('text-white');
+		} else {
+			selectFahrenheit('');
+			selectCelsius('');
 		}
 	};
 
 	return (
 		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
 			<div className="flex w-[65%] justify-between mx-auto text-gray-400">
-				<h1>{city}</h1>
+				<h1>{cityName}</h1>
 				<h1>May 25, 2023</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
-				<div className="flex w-1/2 justify-center gap-1 p-2">
+				<div className="flex w-1/2 justify-center gap-2 p-2">
 					<img
-						// src={OPEN_API_ICON()}
+						src={OPEN_API_ICON(icon)}
 						alt="weather-icon"
 						className="w-[6rem] h-[6rem]"
 					/>
 					<div>
-						<h2 className="text-[3.5rem] h-fit font-light">
-							°
+						<h2 className="text-[4rem] h-fit font-light">
+							{Math.round(temp)}°
 						</h2>
 						<div className="flex justify-between">
-							<h4>{temp_max}°</h4>
-							<h4>{temp_min}°</h4>
+							<h4>
+								{Math.round(
+									temp_max
+								)}
+								°
+							</h4>
+							<h4>
+								{Math.round(
+									temp_min
+								)}
+								°
+							</h4>
 						</div>
 					</div>
 
-					<div className="flex gap-1">
+					<div className="flex gap-2">
 						<button
-							id="fahrenheit"
+							name="imperial"
 							className={`w-[2rem] h-[4rem] text-2xl rounded-full ${fahrenheit}`}
-							onClick={selectUnit}
+							onClick={handleUnits}
 						>
 							F
 						</button>
 						<button
-							id="celsius"
+							name="metric"
 							className={`w-[2rem] h-[4rem] text-2xl rounded-full ${celsius}`}
-							onClick={selectUnit}
+							onClick={handleUnits}
 						>
 							C
 						</button>
@@ -94,12 +106,12 @@ export const CurrentWeather = ({
 						<p>{humidity}%</p>
 					</div>
 					<div className="flex justify-between w-3/5">
-						<p>Precipitation:</p>
-						<p>60%</p>
+						<p>Feels Like:</p>
+						<p>{Math.round(feels_like)}°</p>
 					</div>
 					<div className="flex justify-between w-3/5">
 						<p>Wind:</p>
-						<p>{speed} mph</p>
+						<p>{Math.round(speed)} mph</p>
 					</div>
 				</div>
 			</div>

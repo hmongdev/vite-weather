@@ -7,27 +7,35 @@ import { fetchFinalWeatherData } from './api/openWeatherApi';
 const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(null);
-	const [location, setLocation] = useState(null);
-	const [city, setCity] = useState('');
+	const [location, setLocation] = useState({});
+
+	useEffect(() => {
+		handleLocation();
+	}, [units]);
+
+	const fetchWeather = async () => {
+		await fetchFinalWeatherData({
+			...location,
+			units,
+		}).then((data) => setWeather(data));
+	};
 
 	//location
 	const handleLocation = () => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				let lat = position.coords.latitude;
-				let lon = position.coords.longitude;
+		navigator.geolocation.getCurrentPosition((position) => {
+			let lat = position.coords.latitude;
+			let lon = position.coords.longitude;
 
-				setLocation({
-					lat,
-					lon,
-				});
+			setLocation({
+				lat,
+				lon,
 			});
-		}
+		});
+		fetchWeather();
 	};
 
+	//city
 	const selectCity = async (searchData) => {
-		setCity(searchData.label);
-
 		let lat = searchData.lat;
 		let lon = searchData.lon;
 
@@ -36,12 +44,13 @@ const App = () => {
 			lon: lon,
 		});
 
-		await fetchFinalWeatherData({ lat, lon, units }).then((data) =>
-			setWeather(data)
+		await fetchFinalWeatherData({ ...location, units }).then(
+			(data) => setWeather(data)
 		);
 	};
 
-	console.log(`weather`, weather);
+	// console.log(`weather`, weather);
+
 	return (
 		<div
 			id="viewPort"
@@ -53,8 +62,8 @@ const App = () => {
 			/>
 			{weather && (
 				<CurrentWeather
+					units={units}
 					setUnits={setUnits}
-					city={city}
 					weather={weather}
 				/>
 			)}

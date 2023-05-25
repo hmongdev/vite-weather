@@ -5,7 +5,7 @@
 // https://api.openweathermap.org/data/2.5/weather?lat=44.98&lon=-93.2638&appid=b601b84d0e7ce5864247288c5731f8ae&units=imperial
 
 // forecast
-// https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&appid=b601b84d0e7ce5864247288c5731f8ae&units=imperial
+// https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
 
 const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_API_KEY = import.meta.env.VITE_APP_OPEN_API_KEY;
@@ -27,6 +27,7 @@ const formatCurrentWeather = (data) => {
 	const {
 		coord: { lat, lon },
 		dt,
+		name: cityName,
 		main: { feels_like, humidity, temp, temp_min, temp_max },
 		sys: { country, sunrise, sunset },
 		weather,
@@ -39,6 +40,7 @@ const formatCurrentWeather = (data) => {
 		lat,
 		lon,
 		dt,
+		cityName,
 		feels_like,
 		humidity,
 		temp,
@@ -54,13 +56,13 @@ const formatCurrentWeather = (data) => {
 	};
 };
 
-const fetchWeatherApi = async (weatherType, searchParams, units) => {
+const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
 
 	url.search = new URLSearchParams({
 		...searchParams,
 		appid: OPEN_API_KEY,
-		units: units,
+		units: searchParams.units,
 	});
 
 	console.log(`url`, url);
