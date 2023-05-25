@@ -49,7 +49,7 @@ const App = () => {
 		);
 	};
 
-	// console.log(`weather`, weather);
+	console.log(`weather`, weather);
 
 	return (
 		<div

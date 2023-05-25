@@ -8,7 +8,6 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 
 	const handleCitySelect = (searchData) => {
 		onSelectCity(searchData);
-		setSearch('');
 	};
 
 	async function loadOptions(inputValue) {
