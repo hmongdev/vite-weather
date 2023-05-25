@@ -6,9 +6,9 @@ import { fetchFinalWeatherData } from './api/openWeatherApi';
 
 const App = () => {
 	const [units, setUnits] = useState('imperial');
-	const [currentWeather, setCurrentWeather] = useState(null);
-	const [forecastWeather, setForecastWeather] = useState(null);
+	const [weather, setWeather] = useState(null);
 	const [location, setLocation] = useState(null);
+	const [city, setCity] = useState('');
 
 	//location
 	const handleLocation = () => {
@@ -26,6 +26,8 @@ const App = () => {
 	};
 
 	const selectCity = async (searchData) => {
+		setCity(searchData.label);
+
 		let lat = searchData.lat;
 		let lon = searchData.lon;
 
@@ -35,11 +37,11 @@ const App = () => {
 		});
 
 		await fetchFinalWeatherData({ lat, lon, units }).then((data) =>
-			setCurrentWeather(data)
+			setWeather(data)
 		);
 	};
-	console.log(currentWeather);
 
+	console.log(`weather`, weather);
 	return (
 		<div
 			id="viewPort"
@@ -49,11 +51,13 @@ const App = () => {
 				onSelectCity={selectCity}
 				onLocationChange={handleLocation}
 			/>
-			<CurrentWeather
-				setUnits={setUnits}
-				current={currentWeather}
-				forecast={forecastWeather}
-			/>
+			{weather && (
+				<CurrentWeather
+					setUnits={setUnits}
+					city={city}
+					weather={weather}
+				/>
+			)}
 		</div>
 	);
 };

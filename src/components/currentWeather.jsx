@@ -1,7 +1,27 @@
 import React, { useState } from 'react';
 import { OPEN_API_ICON } from '../api/openWeatherApi';
 
-export const CurrentWeather = ({ current, forecast, setUnits }) => {
+export const CurrentWeather = ({
+	city,
+	weather: {
+		lat,
+		lon,
+		dt,
+		feels_like,
+		humidity,
+		temp,
+		temp_min,
+		temp_max,
+		weather,
+		country,
+		sunrise,
+		sunset,
+		description,
+		icon,
+		speed,
+	},
+	setUnits,
+}) => {
 	const [celsius, setCelsius] = useState('');
 	const [fahrenheit, setFahrenheit] = useState('');
 
@@ -27,8 +47,8 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 	return (
 		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
 			<div className="flex w-[65%] justify-between mx-auto text-gray-400">
-				<h1>Chanhassen, MN</h1>
-				<h1>Monday, May 22</h1>
+				<h1>{city}</h1>
+				<h1>May 25, 2023</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
@@ -40,11 +60,11 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 					/>
 					<div>
 						<h2 className="text-[3.5rem] h-fit font-light">
-							65°
+							°
 						</h2>
 						<div className="flex justify-between">
-							<h4>79°</h4>
-							<h4>58°</h4>
+							<h4>{temp_max}°</h4>
+							<h4>{temp_min}°</h4>
 						</div>
 					</div>
 
@@ -67,11 +87,11 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 				</div>
 				<div className="flex w-1/2 flex-col justify-center items-center gap-2">
 					<h1 className="text-3xl capitalize">
-						Clear Skies
+						{description}
 					</h1>
 					<div className="flex justify-between w-3/5">
 						<p>Humidity</p>
-						<p>60%</p>
+						<p>{humidity}%</p>
 					</div>
 					<div className="flex justify-between w-3/5">
 						<p>Precipitation:</p>
@@ -79,7 +99,7 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 					</div>
 					<div className="flex justify-between w-3/5">
 						<p>Wind:</p>
-						<p>0.28 mph</p>
+						<p>{speed} mph</p>
 					</div>
 				</div>
 			</div>

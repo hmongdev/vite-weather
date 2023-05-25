@@ -63,6 +63,8 @@ const fetchWeatherApi = async (weatherType, searchParams, units) => {
 		units: units,
 	});
 
+	console.log(`url`, url);
+
 	const response = await fetch(url).then((res) => res.json());
 	return response;
 };
