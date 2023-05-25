@@ -25,6 +25,7 @@ export const CurrentWeather = ({
 }) => {
 	const [celsius, selectCelsius] = useState('');
 	const [fahrenheit, selectFahrenheit] = useState('');
+	const [speedUnit, setSpeedUnit] = useState('mph');
 
 	const handleUnits = (event) => {
 		const selectedUnit = event.target.name;
@@ -35,11 +36,13 @@ export const CurrentWeather = ({
 				'text-purple-300 underline underline-offset-4'
 			);
 			selectCelsius('text-white');
+			setSpeedUnit('mph');
 		} else if (selectedUnit === 'metric') {
 			selectCelsius(
 				'text-purple-300 underline underline-offset-4'
 			);
 			selectFahrenheit('text-white');
+			setSpeedUnit('kph');
 		} else {
 			selectFahrenheit('');
 			selectCelsius('');
@@ -111,7 +114,10 @@ export const CurrentWeather = ({
 					</div>
 					<div className="flex justify-between w-3/5">
 						<p>Wind:</p>
-						<p>{Math.round(speed)} mph</p>
+						<p>
+							{Math.round(speed)}{' '}
+							{speedUnit}
+						</p>
 					</div>
 				</div>
 			</div>
