@@ -27,16 +27,14 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 	return (
 		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
 			<div className="flex w-[65%] justify-between mx-auto text-gray-400">
-				<h1>{current.city}</h1>
+				<h1>Chanhassen, MN</h1>
 				<h1>Monday, May 22</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
 				<div className="flex w-1/2 justify-center gap-1 p-2">
 					<img
-						src={OPEN_API_ICON(
-							current.weather[0].icon
-						)}
+						// src={OPEN_API_ICON()}
 						alt="weather-icon"
 						className="w-[6rem] h-[6rem]"
 					/>
@@ -69,7 +67,7 @@ export const CurrentWeather = ({ current, forecast, setUnits }) => {
 				</div>
 				<div className="flex w-1/2 flex-col justify-center items-center gap-2">
 					<h1 className="text-3xl capitalize">
-						{current.weather[0].description}
+						Clear Skies
 					</h1>
 					<div className="flex justify-between w-3/5">
 						<p>Humidity</p>

@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import SearchBar from './components/searchBar';
 import { CurrentWeather } from './components/currentWeather';
 import { useState } from 'react';
-import { OPEN_API_KEY, OPEN_API_URL } from './api/openWeatherApi';
+import { fetchFinalWeatherData } from './api/openWeatherApi';
 
 const App = () => {
 	const [units, setUnits] = useState('imperial');
-	const [current, setCurrent] = useState(null);
-	const [forecast, setForecast] = useState(null);
+	const [currentWeather, setCurrentWeather] = useState(null);
+	const [forecastWeather, setForecastWeather] = useState(null);
 	const [location, setLocation] = useState(null);
 
 	//location
@@ -21,47 +21,24 @@ const App = () => {
 					lat,
 					lon,
 				});
-
-				setCurrent(fetchCurrentWeather(lat, lon));
 			});
 		}
 	};
 
-	const handleSearch = (searchData) => {
-		const [lat, lon] = searchData.value.split(' ');
-		setLocation({ lat: Number(lat), lon: Number(lon) });
+	const selectCity = async (searchData) => {
+		let lat = searchData.lat;
+		let lon = searchData.lon;
 
-		const weatherResponse = fetch(
-			`${OPEN_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${OPEN_API_KEY}&units=${units}`
+		setLocation({
+			lat: lat,
+			lon: lon,
+		});
+
+		await fetchFinalWeatherData({ lat, lon, units }).then((data) =>
+			setCurrentWeather(data)
 		);
-
-		const forecastResponse = fetch(
-			`${OPEN_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_API_KEY}&units=${units}`
-		);
-
-		Promise.all([weatherResponse, forecastResponse])
-			.then(async (response) => {
-				const weatherResponse =
-					await response[0].json();
-				const forecastResponse =
-					await response[1].json();
-
-				setCurrent({
-					city: searchData.label,
-					...weatherResponse,
-				});
-				setForecast({
-					city: searchData.label,
-					...forecastResponse,
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 	};
-
-	console.log(`current`, current);
-	console.log(`forecast`, forecast);
+	console.log(currentWeather);
 
 	return (
 		<div
@@ -69,16 +46,14 @@ const App = () => {
 			className="w-screen h-screen text-left bg-[#121418]"
 		>
 			<SearchBar
-				onSearchChange={handleSearch}
+				onSelectCity={selectCity}
 				onLocationChange={handleLocation}
 			/>
-			{current && (
-				<CurrentWeather
-					setUnits={setUnits}
-					current={current}
-					forecast={forecast}
-				/>
-			)}
+			<CurrentWeather
+				setUnits={setUnits}
+				current={currentWeather}
+				forecast={forecastWeather}
+			/>
 		</div>
 	);
 };

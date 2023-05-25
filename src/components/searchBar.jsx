@@ -3,12 +3,12 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 import { GEO_API_URL, geoApiOptions } from '../api/geoCitiesApi';
 import { UilLocationPoint } from '@iconscout/react-unicons';
 
-const SearchBar = ({ onSearchChange, onLocationChange }) => {
+const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
-	const handleSearch = (searchData) => {
-		setSearch(searchData);
-		onSearchChange(searchData);
+	const handleCitySelect = (searchData) => {
+		onSelectCity(searchData);
+		setSearch('');
 	};
 
 	async function loadOptions(inputValue) {
@@ -25,7 +25,8 @@ const SearchBar = ({ onSearchChange, onLocationChange }) => {
 			return {
 				options: response.data.map((city) => {
 					return {
-						value: `${city.latitude} ${city.longitude}`,
+						lat: city.latitude,
+						lon: city.longitude,
 						label: `${city.name}, ${city.region} - ${city.countryCode}`,
 					};
 				}),
@@ -46,7 +47,7 @@ const SearchBar = ({ onSearchChange, onLocationChange }) => {
 					debounceTimeout={600}
 					value={search}
 					loadOptions={loadOptions}
-					onChange={handleSearch}
+					onChange={handleCitySelect}
 				/>
 			</div>
 			<button>
