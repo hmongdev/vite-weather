@@ -7,17 +7,10 @@ import { fetchFinalWeatherData } from './api/openWeatherApi';
 const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(null);
-	const [location, setLocation] = useState({
-		lat: 44.8903,
-		lon: -93.5516,
-	});
+	const [location, setLocation] = useState(null);
 
-	useEffect(() => {
-		handleLocation();
-	}, [units]);
-
-	const fetchWeather = async () => {
-		await fetchFinalWeatherData({
+	const fetchWeather = () => {
+		fetchFinalWeatherData({
 			...location,
 			units,
 		}).then((data) => setWeather(data));
@@ -39,8 +32,16 @@ const App = () => {
 		fetchWeather();
 	};
 
+	useEffect(() => {
+		if (location) {
+			fetchWeather();
+		} else {
+			handleLocation();
+		}
+	}, [location, units]);
+
 	//city
-	const selectCity = async (searchData) => {
+	const selectCity = (searchData) => {
 		let lat = searchData.lat;
 		let lon = searchData.lon;
 
@@ -49,9 +50,10 @@ const App = () => {
 			lon: lon,
 		});
 
-		await fetchFinalWeatherData({ ...location, units }).then(
-			(data) => setWeather(data)
-		);
+		fetchFinalWeatherData({
+			...location,
+			units,
+		}).then((data) => setWeather(data));
 	};
 
 	console.log(`weather`, weather);

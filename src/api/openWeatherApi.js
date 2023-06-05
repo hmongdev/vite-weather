@@ -59,6 +59,8 @@ const formatCurrentWeather = (data) => {
 const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
 
+	console.log(`searchParams`, searchParams);
+
 	url.search = new URLSearchParams({
 		...searchParams,
 		appid: OPEN_API_KEY,
