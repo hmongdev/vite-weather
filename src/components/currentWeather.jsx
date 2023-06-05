@@ -3,11 +3,11 @@ import { OPEN_API_ICON } from '../api/openWeatherApi';
 
 export const CurrentWeather = ({
 	units,
+	cityName,
 	weather: {
 		lat,
 		lon,
 		dt,
-		cityName,
 		feels_like,
 		humidity,
 		temp,
@@ -51,7 +51,10 @@ export const CurrentWeather = ({
 
 	return (
 		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
-			<div className="flex w-[65%] justify-between mx-auto text-gray-400">
+			<div
+				id="cityName-date"
+				className="flex w-[65%] justify-between mx-auto text-gray-400"
+			>
 				<h1>{cityName}</h1>
 				<h1>May 25, 2023</h1>
 			</div>

@@ -8,6 +8,7 @@ const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(null);
 	const [location, setLocation] = useState(null);
+	const [cityName, setCityName] = useState('');
 
 	const fetchWeather = () => {
 		fetchFinalWeatherData({
@@ -44,11 +45,16 @@ const App = () => {
 	const selectCity = (searchData) => {
 		let lat = searchData.lat;
 		let lon = searchData.lon;
+		let cityName = searchData.city;
+
+		console.log(`searchData`, searchData);
 
 		setLocation({
 			lat: lat,
 			lon: lon,
 		});
+
+		setCityName(cityName);
 
 		fetchFinalWeatherData({
 			...location,
@@ -56,7 +62,7 @@ const App = () => {
 		}).then((data) => setWeather(data));
 	};
 
-	console.log(`weather`, weather);
+	// console.log(`weather`, weather);
 
 	return (
 		<div
@@ -72,6 +78,7 @@ const App = () => {
 					units={units}
 					setUnits={setUnits}
 					weather={weather}
+					cityName={cityName}
 				/>
 			)}
 		</div>

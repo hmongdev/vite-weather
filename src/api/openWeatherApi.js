@@ -24,10 +24,10 @@ const fetchFinalWeatherData = async (searchParams) => {
 };
 
 const formatCurrentWeather = (data) => {
+	// console.log(`data`, data);
 	const {
 		coord: { lat, lon },
 		dt,
-		name: cityName,
 		main: { feels_like, humidity, temp, temp_min, temp_max },
 		sys: { country, sunrise, sunset },
 		weather,
@@ -40,7 +40,6 @@ const formatCurrentWeather = (data) => {
 		lat,
 		lon,
 		dt,
-		cityName,
 		feels_like,
 		humidity,
 		temp,

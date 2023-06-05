@@ -11,14 +11,12 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 		onSelectCity(searchData);
 	};
 
-	async function loadOptions(inputValue) {
+	const loadOptions = async (inputValue) => {
 		//request
 		const response = await fetch(
 			`${GEO_API_URL}/cities?namePrefix=${inputValue}`,
 			geoApiOptions
 		).then((res) => res.json());
-
-		console.log(`response`, response);
 
 		//return
 		return {
@@ -26,11 +24,12 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 				return {
 					lat: city.latitude,
 					lon: city.longitude,
+					city: `${city.city}, ${city.countryCode}`,
 					label: `${city.city}, ${city.region} - ${city.countryCode}`,
 				};
 			}),
 		};
-	}
+	};
 
 	return (
 		<div
