@@ -62,7 +62,7 @@ const App = () => {
 		}).then((data) => setWeather(data));
 	};
 
-	// console.log(`weather`, weather);
+	console.log(`weather`, weather);
 
 	return (
 		<div
@@ -75,7 +75,6 @@ const App = () => {
 			/>
 			{weather && (
 				<CurrentWeather
-					units={units}
 					setUnits={setUnits}
 					weather={weather}
 					cityName={cityName}

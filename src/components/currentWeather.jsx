@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { OPEN_API_ICON } from '../api/openWeatherApi';
 
 export const CurrentWeather = ({
-	units,
+	setUnits,
 	cityName,
 	weather: {
+		weatherCityName,
 		lat,
 		lon,
 		dt,
@@ -21,23 +22,22 @@ export const CurrentWeather = ({
 		icon,
 		speed,
 	},
-	setUnits,
 }) => {
 	const [celsius, selectCelsius] = useState('');
 	const [fahrenheit, selectFahrenheit] = useState('');
 	const [speedUnit, setSpeedUnit] = useState('mph');
 
 	const handleUnits = (event) => {
-		const selectedUnit = event.target.name;
-		setUnits(selectedUnit);
+		let units = event.target.name; //metric or imperial
+		setUnits(units);
 
-		if (selectedUnit === 'imperial') {
+		if (units === 'imperial') {
 			selectFahrenheit(
 				'text-purple-300 underline underline-offset-4'
 			);
 			selectCelsius('text-white');
 			setSpeedUnit('mph');
-		} else if (selectedUnit === 'metric') {
+		} else if (units === 'metric') {
 			selectCelsius(
 				'text-purple-300 underline underline-offset-4'
 			);
@@ -55,7 +55,7 @@ export const CurrentWeather = ({
 				id="cityName-date"
 				className="flex w-[65%] justify-between mx-auto text-gray-400"
 			>
-				<h1>{cityName}</h1>
+				<h1>{cityName ? cityName : weatherCityName}</h1>
 				<h1>May 25, 2023</h1>
 			</div>
 			<hr />

@@ -27,6 +27,7 @@ const formatCurrentWeather = (data) => {
 	// console.log(`data`, data);
 	const {
 		coord: { lat, lon },
+		name: weatherCityName,
 		dt,
 		main: { feels_like, humidity, temp, temp_min, temp_max },
 		sys: { country, sunrise, sunset },
@@ -38,6 +39,7 @@ const formatCurrentWeather = (data) => {
 
 	return {
 		lat,
+		weatherCityName,
 		lon,
 		dt,
 		feels_like,
@@ -58,7 +60,7 @@ const formatCurrentWeather = (data) => {
 const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
 
-	console.log(`searchParams`, searchParams);
+	// console.log(`searchParams`, searchParams);
 
 	url.search = new URLSearchParams({
 		...searchParams,
@@ -66,7 +68,7 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 		units: searchParams.units,
 	});
 
-	console.log(`url`, url);
+	// console.log(`url`, url);
 
 	const response = await fetch(url).then((res) => res.json());
 	return response;
