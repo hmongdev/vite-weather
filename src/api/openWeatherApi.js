@@ -70,8 +70,7 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 
 	// console.log(`url`, url);
 
-	const response = await fetch(url).then((res) => res.json());
-	return response;
+	return await fetch(url).then((res) => res.json());
 };
 
 const OPEN_API_ICON = (code) =>

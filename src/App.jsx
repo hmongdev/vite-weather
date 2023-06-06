@@ -30,14 +30,14 @@ const App = () => {
 				});
 			});
 		}
-		fetchWeather();
 	};
 
 	useEffect(() => {
-		if (location) {
+		if (!location) {
+			handleLocation();
 			fetchWeather();
 		} else {
-			handleLocation();
+			fetchWeather();
 		}
 	}, [location, units]);
 

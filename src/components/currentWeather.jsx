@@ -24,7 +24,9 @@ export const CurrentWeather = ({
 	},
 }) => {
 	const [celsius, selectCelsius] = useState('');
-	const [fahrenheit, selectFahrenheit] = useState('');
+	const [fahrenheit, selectFahrenheit] = useState(
+		'text-purple-300 underline underline-offset-4'
+	);
 	const [speedUnit, setSpeedUnit] = useState('mph');
 
 	const handleUnits = (event) => {
