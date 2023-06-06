@@ -6,28 +6,26 @@ import { UilLocationPoint } from '@iconscout/react-unicons';
 const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
-	const handleCitySelect = (searchData) => {
-		console.log(`searchData`, searchData);
-		onSelectCity(searchData);
+	const handleChange = (selected) => {
+		onSelectCity(selected[0]);
+		// console.log(`handleChange in searchBar.jsx`, selected[0]);
 	};
 
-	const loadOptions = async (inputValue) => {
+	const loadOptions = async (searchQuery, loadedOptions) => {
 		//request
 		const response = await fetch(
-			`${GEO_API_URL}/cities?namePrefix=${inputValue}`,
+			`${GEO_API_URL}/cities?namePrefix=${searchQuery}&offset=${loadedOptions.length}`,
 			geoApiOptions
 		).then((res) => res.json());
 
 		//return
 		return {
-			options: response.data.map((city) => {
-				return {
-					lat: city.latitude,
-					lon: city.longitude,
-					city: `${city.city}, ${city.countryCode}`,
-					label: `${city.city}, ${city.region} - ${city.countryCode}`,
-				};
-			}),
+			options: response.data.map((city) => ({
+				lat: city.latitude,
+				lon: city.longitude,
+				label: `${city.city}, ${city.region} - ${city.countryCode}`,
+			})),
+			hasMore: true,
 		};
 	};
 
@@ -38,11 +36,12 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 		>
 			<div className="min-w-[50%]">
 				<AsyncPaginate
-					placeholder="Search by City Name"
-					debounceTimeout={600}
+					isMulti
+					cacheOptions
 					value={search}
 					loadOptions={loadOptions}
-					onChange={handleCitySelect}
+					onChange={handleChange}
+					placeholder="Search by City Name"
 				/>
 			</div>
 			<button>

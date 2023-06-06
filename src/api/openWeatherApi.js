@@ -24,7 +24,7 @@ const fetchFinalWeatherData = async (searchParams) => {
 };
 
 const formatCurrentWeather = (data) => {
-	// console.log(`data`, data);
+	console.log(`data`, data);
 	const {
 		coord: { lat, lon },
 		name: weatherCityName,

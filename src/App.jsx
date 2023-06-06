@@ -8,7 +8,6 @@ const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(null);
 	const [location, setLocation] = useState(null);
-	const [cityName, setCityName] = useState('');
 
 	const fetchWeather = () => {
 		fetchFinalWeatherData({
@@ -30,31 +29,25 @@ const App = () => {
 				});
 			});
 		}
+		fetchWeather();
 	};
 
 	useEffect(() => {
 		if (!location) {
 			handleLocation();
-			fetchWeather();
 		} else {
 			fetchWeather();
 		}
 	}, [location, units]);
 
 	//city
-	const selectCity = (searchData) => {
-		let lat = searchData.lat;
-		let lon = searchData.lon;
-		let cityName = searchData.city;
+	const selectCity = (selectedCity) => {
+		let lat = selectedCity.lat;
+		let lon = selectedCity.lon;
 
-		console.log(`searchData`, searchData);
+		// console.log(`selectCity in App.jsx`, selectedCity);
 
-		setLocation({
-			lat: lat,
-			lon: lon,
-		});
-
-		setCityName(cityName);
+		setLocation({ lat, lon });
 
 		fetchFinalWeatherData({
 			...location,
@@ -77,7 +70,6 @@ const App = () => {
 				<CurrentWeather
 					setUnits={setUnits}
 					weather={weather}
-					cityName={cityName}
 				/>
 			)}
 		</div>
