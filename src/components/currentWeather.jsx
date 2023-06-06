@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
 import ForecastWeather from './ForecastWeather';
 import { DateTime } from 'luxon';
+import { formatToLocalTime } from '../api/openWeatherApi';
 
 export const CurrentWeather = ({
 	setUnits,
@@ -23,18 +24,19 @@ export const CurrentWeather = ({
 		icon,
 		speed,
 		hourly,
+		timezone,
 	},
 }) => {
-	const currentDate = DateTime.local().toLocaleString({
-		month: 'short',
-		day: 'numeric',
-		year: 'numeric',
-	});
 	const [celsius, selectCelsius] = useState('');
 	const [fahrenheit, selectFahrenheit] = useState(
 		'text-purple-300 underline underline-offset-4'
 	);
 	const [speedUnit, setSpeedUnit] = useState('mph');
+	const currentDate = DateTime.local().toLocaleString({
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric',
+	});
 
 	const handleUnits = (event) => {
 		let units = event.target.name; //metric or imperial
@@ -64,8 +66,10 @@ export const CurrentWeather = ({
 				id="cityName-date"
 				className="flex w-[65%] justify-between mx-auto text-gray-400"
 			>
-				<h1>{weatherCityName}</h1>
-				<h1>{currentDate}</h1>
+				<h1>
+					{weatherCityName}, {country}
+				</h1>
+				<h1>{formatToLocalTime(dt, timezone)}</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
@@ -94,8 +98,7 @@ export const CurrentWeather = ({
 							</h4>
 						</div>
 					</div>
-
-					<div className="flex gap-2">
+					<div className="flex gap-2 h-fit">
 						<button
 							name="imperial"
 							className={`w-[2rem] h-[4rem] text-2xl rounded-full ${fahrenheit}`}
@@ -121,11 +124,11 @@ export const CurrentWeather = ({
 						<p>{humidity}%</p>
 					</div>
 					<div className="flex justify-between w-3/5">
-						<p>Feels Like:</p>
+						<p>Feels Like</p>
 						<p>{Math.round(feels_like)}°</p>
 					</div>
 					<div className="flex justify-between w-3/5">
-						<p>Wind:</p>
+						<p>Wind</p>
 						<p>
 							{Math.round(speed)}{' '}
 							{speedUnit}

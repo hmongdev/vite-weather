@@ -124,4 +124,10 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 const fetchIconCode = (code) =>
 	`http://openweathermap.org/img/wn/${code}@2x.png`;
 
-export { OPEN_API_URL, OPEN_API_KEY, fetchIconCode, fetchFinalWeatherData };
+export {
+	OPEN_API_URL,
+	OPEN_API_KEY,
+	fetchIconCode,
+	fetchFinalWeatherData,
+	formatToLocalTime,
+};
