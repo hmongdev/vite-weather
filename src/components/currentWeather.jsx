@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
-import { DateTime } from 'luxon';
 import { formatToLocalTime } from '../api/openWeatherApi';
-import ForecastWeather from './ForecastWeather';
 
 export const CurrentWeather = ({
 	setUnits,
@@ -27,11 +25,6 @@ export const CurrentWeather = ({
 		'text-purple-300 underline underline-offset-4'
 	);
 	const [speedUnit, setSpeedUnit] = useState('mph');
-	const currentDate = DateTime.local().toLocaleString({
-		month: 'short',
-		day: 'numeric',
-		year: 'numeric',
-	});
 
 	const handleUnits = (event) => {
 		let units = event.target.name; //metric or imperial
