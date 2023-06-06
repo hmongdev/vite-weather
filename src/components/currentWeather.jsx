@@ -49,8 +49,8 @@ export const CurrentWeather = ({
 	};
 
 	return (
-		<div className="bg-[#121418]">
-			<div className="flex w-[65%] justify-between mx-auto text-gray-400 py-5">
+		<div>
+			<div className="flex w-full text-xl justify-between mx-auto text-gray-400 py-5">
 				<h1>
 					{weatherCityName}, {country}
 				</h1>

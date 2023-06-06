@@ -7,8 +7,8 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
 	const handleChange = (selected) => {
-		onSelectCity(selected);
-		console.log(`handleChange in searchBar.jsx`, selected);
+		onSelectCity(selected[0]);
+		// console.log(`handleChange in searchBar.jsx`, selected[0]);
 	};
 
 	return (

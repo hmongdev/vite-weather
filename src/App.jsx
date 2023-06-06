@@ -7,8 +7,8 @@ import ForecastWeather from './components/ForecastWeather';
 
 const App = () => {
 	const [units, setUnits] = useState('imperial');
-	const [weather, setWeather] = useState(null);
-	const [location, setLocation] = useState(null);
+	const [weather, setWeather] = useState(false);
+	const [location, setLocation] = useState(undefined);
 
 	const fetchWeather = () => {
 		fetchFinalWeatherData({
@@ -16,6 +16,21 @@ const App = () => {
 			units,
 		}).then((data) => setWeather(data));
 	};
+
+	// const formatBackground = () => {
+	// 	console.log(`inside formatBackground`);
+	// 	//standard background
+	// 	if (!weather)
+	// 		return 'bg-gradient-to-br from-cyan-500 to to-blue-900';
+
+	// 	const threshold = units === 'imperial' ? 20 : 60;
+	// 	if (weather.temp <= threshold) {
+	// 		return 'from-cyan-500 to-blue-500';
+	// 	} else {
+	// 		//else weather is warm...
+	// 		return 'from-yellow-500 to-orange-500';
+	// 	}
+	// };
 
 	//location
 	const handleLocation = () => {
@@ -34,7 +49,7 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		if (!location) {
+		if (location == null) {
 			handleLocation();
 		} else {
 			fetchWeather();
@@ -46,22 +61,19 @@ const App = () => {
 		let lat = selectedCity.lat;
 		let lon = selectedCity.lon;
 
-		// console.log(`selectCity in App.jsx`, selectedCity);
+		console.log(`selectCity in App.jsx`, selectedCity);
 
 		setLocation({ lat, lon });
-
-		fetchFinalWeatherData({
-			...location,
-			units,
-		}).then((data) => setWeather(data));
+		fetchWeather();
 	};
 
 	console.log(`weather`, weather);
+	// console.log(`location`, location);
 
 	return (
 		<div
 			id="viewPort"
-			className="flex-col h-screen w-screen text-left p-10 bg-[#121418]"
+			className="h-screen w-screen text-left p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
 		>
 			<SearchBar
 				onSelectCity={selectCity}

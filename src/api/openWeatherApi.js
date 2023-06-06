@@ -67,11 +67,7 @@ const formatCurrentWeather = (data) => {
 };
 
 const formatForecastWeather = (data) => {
-	let {
-		timezone,
-		hourly,
-		// hourly
-	} = data;
+	let { timezone, hourly } = data;
 
 	// console.log(`formatForecastWeather`, data.list.slice(1, 6));
 
@@ -84,18 +80,9 @@ const formatForecastWeather = (data) => {
 		};
 	});
 
-	// hourly = hourly.slice(1, 6).map((d) => {
-	// 	return {
-	// 		title: formatToLocalTime(d.dt, timezone, 'hh:mm a'),
-	// 		temp: d.temp,
-	// 		icon: d.weather[0].icon,
-	// 	};
-	// });
-
 	return {
 		timezone,
 		hourly,
-		// hourly
 	};
 };
 

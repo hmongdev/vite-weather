@@ -16,7 +16,7 @@ const ForecastWeather = ({ items }) => {
 							src={fetchIconCode(
 								item.icon
 							)}
-							alt=""
+							alt="weather-icon"
 							className="w-12 my-1"
 						/>
 						<p className="font-medium">{`${item.temp.toFixed()}°`}</p>
