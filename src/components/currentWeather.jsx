@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
+import ForecastWeather from './ForecastWeather';
+import { DateTime } from 'luxon';
 
 export const CurrentWeather = ({
 	setUnits,
@@ -20,8 +22,14 @@ export const CurrentWeather = ({
 		description,
 		icon,
 		speed,
+		hourly,
 	},
 }) => {
+	const currentDate = DateTime.local().toLocaleString({
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric',
+	});
 	const [celsius, selectCelsius] = useState('');
 	const [fahrenheit, selectFahrenheit] = useState(
 		'text-purple-300 underline underline-offset-4'
@@ -57,7 +65,7 @@ export const CurrentWeather = ({
 				className="flex w-[65%] justify-between mx-auto text-gray-400"
 			>
 				<h1>{weatherCityName}</h1>
-				<h1>May 25, 2023</h1>
+				<h1>{currentDate}</h1>
 			</div>
 			<hr />
 			<div className="flex justify-between min-h-[10rem]">
@@ -125,7 +133,7 @@ export const CurrentWeather = ({
 					</div>
 				</div>
 			</div>
-			{/* <div className="min-h-[10rem]">hello world</div> */}
+			<ForecastWeather items={hourly} />
 		</div>
 	);
 };

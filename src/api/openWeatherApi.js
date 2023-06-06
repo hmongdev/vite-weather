@@ -7,6 +7,7 @@
 // forecast
 // https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
 
+import { DateTime } from 'luxon';
 const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_API_KEY = import.meta.env.VITE_APP_OPEN_API_KEY;
 
@@ -20,7 +21,15 @@ const fetchFinalWeatherData = async (searchParams) => {
 
 	//forecast call
 
-	return { ...finalCurrentWeather };
+	const { lat, lon } = finalCurrentWeather;
+
+	const finalForecastWeather = await fetchWeatherApi('forecast', {
+		lat,
+		lon,
+		units: searchParams.units,
+	}).then(formatForecastWeather);
+
+	return { ...finalCurrentWeather, ...finalForecastWeather };
 };
 
 const formatCurrentWeather = (data) => {
@@ -56,6 +65,45 @@ const formatCurrentWeather = (data) => {
 		speed,
 	};
 };
+
+const formatForecastWeather = (data) => {
+	let {
+		timezone,
+		hourly,
+		// hourly
+	} = data;
+
+	console.log(`formatForecastWeather DATA`, data.list.slice(1, 6));
+
+	hourly = data.list.slice(0, 6).map((d) => {
+		return {
+			day: formatToLocalTime(d.dt, timezone, 'ccc'),
+			time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
+			temp: d.main.feels_like,
+			icon: d.weather[0].icon,
+		};
+	});
+
+	// hourly = hourly.slice(1, 6).map((d) => {
+	// 	return {
+	// 		title: formatToLocalTime(d.dt, timezone, 'hh:mm a'),
+	// 		temp: d.temp,
+	// 		icon: d.weather[0].icon,
+	// 	};
+	// });
+
+	return {
+		timezone,
+		hourly,
+		// hourly
+	};
+};
+
+const formatToLocalTime = (
+	secs,
+	timezone,
+	format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
+) => DateTime.fromSeconds(secs).setZone(timezone).toFormat(format);
 
 const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
