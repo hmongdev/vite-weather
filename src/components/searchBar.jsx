@@ -1,32 +1,14 @@
 import { useState } from 'react';
 import { AsyncPaginate } from 'react-select-async-paginate';
-import { GEO_API_URL, geoApiOptions } from '../api/geoCitiesApi';
 import { UilLocationPoint } from '@iconscout/react-unicons';
+import { loadOptions } from '../api/geoCitiesApi';
 
 const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const [search, setSearch] = useState(null);
 
 	const handleChange = (selected) => {
-		onSelectCity(selected[0]);
-		// console.log(`handleChange in searchBar.jsx`, selected[0]);
-	};
-
-	const loadOptions = async (searchQuery, loadedOptions) => {
-		//request
-		const response = await fetch(
-			`${GEO_API_URL}/cities?namePrefix=${searchQuery}&offset=${loadedOptions.length}&sort=name`,
-			geoApiOptions
-		).then((res) => res.json());
-
-		//return
-		return {
-			options: response.data.map((city) => ({
-				lat: city.latitude,
-				lon: city.longitude,
-				label: `${city.city}, ${city.region} - ${city.countryCode}`,
-			})),
-			hasMore: true,
-		};
+		onSelectCity(selected);
+		console.log(`handleChange in searchBar.jsx`, selected);
 	};
 
 	return (
@@ -36,8 +18,9 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 		>
 			<div className="min-w-[50%]">
 				<AsyncPaginate
-					isMulti
+					// isMulti
 					cacheOptions
+					debounceTimeout={500}
 					value={search}
 					loadOptions={loadOptions}
 					onChange={handleChange}

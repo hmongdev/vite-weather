@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
-import ForecastWeather from './ForecastWeather';
 import { DateTime } from 'luxon';
 import { formatToLocalTime } from '../api/openWeatherApi';
+import ForecastWeather from './ForecastWeather';
 
 export const CurrentWeather = ({
 	setUnits,
 	weather: {
 		weatherCityName,
-		lat,
-		lon,
 		dt,
 		feels_like,
 		humidity,
+		hourly,
 		temp,
 		temp_min,
 		temp_max,
-		weather,
 		country,
-		sunrise,
-		sunset,
 		description,
 		icon,
 		speed,
-		hourly,
 		timezone,
 	},
 }) => {
@@ -61,11 +56,8 @@ export const CurrentWeather = ({
 	};
 
 	return (
-		<div className="flex flex-col gap-10 bg-[#121418] w-full h-full rounded-xl p-7">
-			<div
-				id="cityName-date"
-				className="flex w-[65%] justify-between mx-auto text-gray-400"
-			>
+		<div className="bg-[#121418]">
+			<div className="flex w-[65%] justify-between mx-auto text-gray-400 py-5">
 				<h1>
 					{weatherCityName}, {country}
 				</h1>
@@ -136,7 +128,6 @@ export const CurrentWeather = ({
 					</div>
 				</div>
 			</div>
-			<ForecastWeather items={hourly} />
 		</div>
 	);
 };

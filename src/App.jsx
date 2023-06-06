@@ -3,6 +3,7 @@ import SearchBar from './components/searchBar';
 import { CurrentWeather } from './components/currentWeather';
 import { useState } from 'react';
 import { fetchFinalWeatherData } from './api/openWeatherApi';
+import ForecastWeather from './components/ForecastWeather';
 
 const App = () => {
 	const [units, setUnits] = useState('imperial');
@@ -60,17 +61,22 @@ const App = () => {
 	return (
 		<div
 			id="viewPort"
-			className="w-screen h-screen text-left bg-[#121418]"
+			className="flex-col h-screen w-screen text-left p-10 bg-[#121418]"
 		>
 			<SearchBar
 				onSelectCity={selectCity}
 				onLocationChange={handleLocation}
 			/>
 			{weather && (
-				<CurrentWeather
-					setUnits={setUnits}
-					weather={weather}
-				/>
+				<>
+					<CurrentWeather
+						setUnits={setUnits}
+						weather={weather}
+					/>
+					<ForecastWeather
+						items={weather.hourly}
+					/>
+				</>
 			)}
 		</div>
 	);

@@ -33,7 +33,7 @@ const fetchFinalWeatherData = async (searchParams) => {
 };
 
 const formatCurrentWeather = (data) => {
-	console.log(`data`, data);
+	// console.log(`data`, data);
 	const {
 		coord: { lat, lon },
 		name: weatherCityName,
@@ -73,7 +73,7 @@ const formatForecastWeather = (data) => {
 		// hourly
 	} = data;
 
-	console.log(`formatForecastWeather DATA`, data.list.slice(1, 6));
+	// console.log(`formatForecastWeather`, data.list.slice(1, 6));
 
 	hourly = data.list.slice(0, 6).map((d) => {
 		return {
