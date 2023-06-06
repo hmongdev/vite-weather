@@ -73,7 +73,7 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 	return await fetch(url).then((res) => res.json());
 };
 
-const OPEN_API_ICON = (code) =>
+const fetchIconCode = (code) =>
 	`http://openweathermap.org/img/wn/${code}@2x.png`;
 
-export { OPEN_API_URL, OPEN_API_KEY, OPEN_API_ICON, fetchFinalWeatherData };
+export { OPEN_API_URL, OPEN_API_KEY, fetchIconCode, fetchFinalWeatherData };

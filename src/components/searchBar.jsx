@@ -14,7 +14,7 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 	const loadOptions = async (searchQuery, loadedOptions) => {
 		//request
 		const response = await fetch(
-			`${GEO_API_URL}/cities?namePrefix=${searchQuery}&offset=${loadedOptions.length}`,
+			`${GEO_API_URL}/cities?namePrefix=${searchQuery}&offset=${loadedOptions.length}&sort=name`,
 			geoApiOptions
 		).then((res) => res.json());
 

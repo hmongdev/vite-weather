@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OPEN_API_ICON } from '../api/openWeatherApi';
+import { fetchIconCode } from '../api/openWeatherApi';
 
 export const CurrentWeather = ({
 	setUnits,
@@ -63,7 +63,7 @@ export const CurrentWeather = ({
 			<div className="flex justify-between min-h-[10rem]">
 				<div className="flex w-1/2 justify-center gap-2 p-2">
 					<img
-						src={OPEN_API_ICON(icon)}
+						src={fetchIconCode(icon)}
 						alt="weather-icon"
 						className="w-[6rem] h-[6rem]"
 					/>
