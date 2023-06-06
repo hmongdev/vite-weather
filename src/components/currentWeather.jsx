@@ -121,6 +121,7 @@ export const CurrentWeather = ({
 					</div>
 				</div>
 			</div>
+			<hr />
 		</div>
 	);
 };

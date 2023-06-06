@@ -3,12 +3,6 @@ import { fetchIconCode } from '../api/openWeatherApi';
 const ForecastWeather = ({ items }) => {
 	return (
 		<>
-			<div className="flex items-center justify-start mt-6">
-				{/* <p className="text-white font-medium uppercase">
-						3-Hour Forecast
-					</p> */}
-			</div>
-			<hr />
 			<div className="flex flex-row items-center justify-between gap-5 p-5 text-white">
 				{items.map((item, i) => (
 					<div
