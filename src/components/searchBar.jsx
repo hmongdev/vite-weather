@@ -18,7 +18,7 @@ const SearchBar = ({ onSelectCity, onLocationChange }) => {
 		>
 			<div className="min-w-[50%]">
 				<AsyncPaginate
-					// isMulti
+					isMulti
 					cacheOptions
 					debounceTimeout={500}
 					value={search}

@@ -23,6 +23,6 @@ export const loadOptions = async (searchQuery, loadedOptions) => {
 			lon: city.longitude,
 			label: `${city.city}, ${city.region} - ${city.countryCode}`,
 		})),
-		hasMore: true,
+		hasMore: response.data.hasMore,
 	};
 };
