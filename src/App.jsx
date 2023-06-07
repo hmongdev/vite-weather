@@ -58,7 +58,7 @@ const App = () => {
 	return (
 		<div
 			id="viewPort"
-			className="h-screen w-screen text-left p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+			className="h-screen w-screen text-left p-10 bg-[#181A20]"
 		>
 			<SearchBar
 				onSelectCity={selectCity}

@@ -8,9 +8,11 @@ const ForecastWeather = ({ items }) => {
 					<div
 						id="forecastCard"
 						key={i}
-						className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-xl justify-between items-center p-5 m-2 bg-slate-200"
+						className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-2xl justify-between items-center p-5 m-2 hover:bg-[#121318]"
 					>
-						<p className="font-light text-sm">
+						<p className="text-center font-light text-sm">
+							{item.day}
+							<br />
 							{item.time}
 						</p>
 						<img
@@ -20,7 +22,10 @@ const ForecastWeather = ({ items }) => {
 							alt="weather-icon"
 							className="w-12 my-1"
 						/>
-						<p className="font-medium">{`${item.temp.toFixed()}°`}</p>
+						<div className="flex justify-between gap-7">
+							<p className="font-medium">{`${item.tempMax.toFixed()}°`}</p>
+							<p className="font-medium">{`${item.tempMin.toFixed()}°`}</p>
+						</div>
 					</div>
 				))}
 			</div>
