@@ -22,9 +22,8 @@ const ForecastWeather = ({ items }) => {
 							alt="weather-icon"
 							className="w-12 my-1"
 						/>
-						<div className="flex justify-between gap-7">
-							<p className="font-medium">{`${item.tempMax.toFixed()}°`}</p>
-							<p className="font-medium">{`${item.tempMin.toFixed()}°`}</p>
+						<div>
+							<p className="font-medium">{`${item.temp.toFixed()}°`}</p>
 						</div>
 					</div>
 				))}

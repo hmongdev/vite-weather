@@ -11,6 +11,22 @@ import { DateTime } from 'luxon';
 const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_API_KEY = import.meta.env.VITE_APP_OPEN_API_KEY;
 
+const fetchWeatherApi = async (weatherType, searchParams) => {
+	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
+
+	// console.log(`searchParams`, searchParams);
+
+	url.search = new URLSearchParams({
+		...searchParams,
+		appid: OPEN_API_KEY,
+		units: searchParams.units,
+	});
+
+	// console.log(`url`, url);
+
+	return await fetch(url).then((res) => res.json());
+};
+
 const fetchFinalWeatherData = async (searchParams) => {
 	//weather call
 	const finalCurrentWeather = await fetchWeatherApi('weather', {
@@ -75,8 +91,7 @@ const formatForecastWeather = (data) => {
 		return {
 			day: formatToLocalTime(d.dt, timezone, 'ccc'),
 			time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
-			tempMax: d.main.temp_max,
-			tempMin: d.main.temp_min,
+			temp: d.main.feels_like,
 			icon: d.weather[0].icon,
 		};
 	});
@@ -93,22 +108,6 @@ const formatToLocalTime = (
 	// format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
 	format = "cccc, LLL d' | 'hh:mm a"
 ) => DateTime.fromSeconds(secs).setZone(timezone).toFormat(format);
-
-const fetchWeatherApi = async (weatherType, searchParams) => {
-	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
-
-	// console.log(`searchParams`, searchParams);
-
-	url.search = new URLSearchParams({
-		...searchParams,
-		appid: OPEN_API_KEY,
-		units: searchParams.units,
-	});
-
-	// console.log(`url`, url);
-
-	return await fetch(url).then((res) => res.json());
-};
 
 const fetchIconCode = (code) =>
 	`http://openweathermap.org/img/wn/${code}@2x.png`;
