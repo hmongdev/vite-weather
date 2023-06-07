@@ -42,17 +42,16 @@ const SearchBar = ({ onSelectCity, onLocationChange, setUnits }) => {
 			id="searchBarContainer"
 			className="flex gap-3 w-full h-[10%] py-5 justify-center items-center"
 		>
-			<div className="min-w-[50%]">
-				<AsyncPaginate
-					isMulti
-					cacheOptions
-					debounceTimeout={500}
-					value={search}
-					loadOptions={loadOptions}
-					onChange={handleChange}
-					placeholder="Search by City Name"
-				/>
-			</div>
+			<AsyncPaginate
+				className="w-full"
+				isMulti
+				cacheOptions
+				debounceTimeout={500}
+				value={search}
+				loadOptions={loadOptions}
+				onChange={handleChange}
+				placeholder="Search by City Name"
+			/>
 			<button>
 				<UilLocationPoint
 					onClick={onLocationChange}

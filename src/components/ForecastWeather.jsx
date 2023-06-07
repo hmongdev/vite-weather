@@ -8,9 +8,9 @@ const ForecastWeather = ({ items }) => {
 					<div
 						id="forecastCard"
 						key={i}
-						className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-2xl justify-between items-center p-1 m-2 hover:bg-[#121318]"
+						className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-2xl justify-between items-center text-lg p-1 m-2 hover:bg-[#121318]"
 					>
-						<p className="text-center font-light text-sm">
+						<p className="text-center font-light text-lg">
 							{item.day}
 							<br />
 							{item.time}
