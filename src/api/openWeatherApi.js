@@ -106,7 +106,7 @@ const formatToLocalTime = (
 	secs,
 	timezone,
 	// format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
-	format = "cccc, LLL d' | 'hh:mm a"
+	format = "ccc, LLL d' | 'hh:mm a"
 ) => DateTime.fromSeconds(secs).setZone(timezone).toFormat(format);
 
 const fetchIconCode = (code) =>

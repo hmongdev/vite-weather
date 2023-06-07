@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
 import { formatToLocalTime } from '../api/openWeatherApi';
-import {
-	UilTemperature,
-	UilTear,
-	UilWind,
-	UilSun,
-	UilSunset,
-} from '@iconscout/react-unicons';
+import { UilTemperature, UilTear, UilWind } from '@iconscout/react-unicons';
 
 export const CurrentWeather = ({
-	setUnits,
 	weather: {
 		weatherCityName,
 		dt,
 		feels_like,
 		humidity,
-		hourly,
 		temp,
 		temp_min,
 		temp_max,
@@ -27,37 +19,11 @@ export const CurrentWeather = ({
 		timezone,
 	},
 }) => {
-	const [celsius, selectCelsius] = useState('');
-	const [fahrenheit, selectFahrenheit] = useState(
-		'text-purple-300 underline underline-offset-4'
-	);
 	const [speedUnit, setSpeedUnit] = useState('mph');
-
-	const handleUnits = (event) => {
-		let units = event.target.name; //metric or imperial
-		setUnits(units);
-
-		if (units === 'imperial') {
-			selectFahrenheit(
-				'text-purple-300 underline underline-offset-4'
-			);
-			selectCelsius('text-white');
-			setSpeedUnit('mph');
-		} else if (units === 'metric') {
-			selectCelsius(
-				'text-purple-300 underline underline-offset-4'
-			);
-			selectFahrenheit('text-white');
-			setSpeedUnit('kph');
-		} else {
-			selectFahrenheit('');
-			selectCelsius('');
-		}
-	};
 
 	return (
 		<div>
-			<div className="flex w-full text-lg justify-between mx-auto text-gray-400 py-5">
+			<div className="flex w-full text-sm justify-between mx-auto text-gray-400 mb-4">
 				<h1>
 					{weatherCityName}, {country}
 				</h1>
@@ -89,22 +55,6 @@ export const CurrentWeather = ({
 								°
 							</h4>
 						</div>
-					</div>
-					<div className="flex gap-2 h-fit">
-						<button
-							name="imperial"
-							className={`w-[2rem] h-[4rem] text-2xl rounded-full ${fahrenheit}`}
-							onClick={handleUnits}
-						>
-							F
-						</button>
-						<button
-							name="metric"
-							className={`w-[2rem] h-[4rem] text-2xl rounded-full ${celsius}`}
-							onClick={handleUnits}
-						>
-							C
-						</button>
 					</div>
 				</div>
 

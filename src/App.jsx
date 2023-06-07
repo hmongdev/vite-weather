@@ -58,18 +58,16 @@ const App = () => {
 	return (
 		<div
 			id="viewPort"
-			className="h-screen w-screen text-left p-10 bg-[#181A20]"
+			className="flex-col justify-center items-center min-w-screen min-h-screen p-5 bg-[#181A20]"
 		>
 			<SearchBar
 				onSelectCity={selectCity}
 				onLocationChange={handleLocation}
+				setUnits={setUnits}
 			/>
 			{weather && (
 				<>
-					<CurrentWeather
-						setUnits={setUnits}
-						weather={weather}
-					/>
+					<CurrentWeather weather={weather} />
 					<ForecastWeather
 						items={weather.hourly}
 					/>
