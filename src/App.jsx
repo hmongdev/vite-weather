@@ -17,21 +17,6 @@ const App = () => {
 		}).then((data) => setWeather(data));
 	};
 
-	// const formatBackground = () => {
-	// 	console.log(`inside formatBackground`);
-	// 	//standard background
-	// 	if (!weather)
-	// 		return 'bg-gradient-to-br from-cyan-500 to to-blue-900';
-
-	// 	const threshold = units === 'imperial' ? 20 : 60;
-	// 	if (weather.temp <= threshold) {
-	// 		return 'from-cyan-500 to-blue-500';
-	// 	} else {
-	// 		//else weather is warm...
-	// 		return 'from-yellow-500 to-orange-500';
-	// 	}
-	// };
-
 	//location
 	const handleLocation = () => {
 		if (navigator.geolocation) {

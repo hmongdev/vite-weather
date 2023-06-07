@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { fetchIconCode } from '../api/openWeatherApi';
 import { formatToLocalTime } from '../api/openWeatherApi';
+import {
+	UilTemperature,
+	UilTear,
+	UilWind,
+	UilSun,
+	UilSunset,
+} from '@iconscout/react-unicons';
 
 export const CurrentWeather = ({
 	setUnits,
@@ -50,7 +57,7 @@ export const CurrentWeather = ({
 
 	return (
 		<div>
-			<div className="flex w-full text-xl justify-between mx-auto text-gray-400 py-5">
+			<div className="flex w-full text-lg justify-between mx-auto text-gray-400 py-5">
 				<h1>
 					{weatherCityName}, {country}
 				</h1>
@@ -65,7 +72,7 @@ export const CurrentWeather = ({
 						className="w-[6rem] h-[6rem]"
 					/>
 					<div>
-						<h2 className="text-[4rem] h-fit font-light">
+						<h2 className="text-[3rem] h-fit font-light">
 							{Math.round(temp)}°
 						</h2>
 						<div className="flex justify-between">
@@ -100,20 +107,39 @@ export const CurrentWeather = ({
 						</button>
 					</div>
 				</div>
+
 				<div className="flex w-1/2 flex-col justify-center items-center gap-2">
-					<h1 className="text-3xl capitalize">
+					<h1 className="text-2xl capitalize">
 						{description}
 					</h1>
 					<div className="flex justify-between w-3/5">
-						<p>Humidity</p>
+						<UilTear
+							size={25}
+							className="sm:hidden"
+						/>
+						<p className="hidden sm:flex">
+							Humidity
+						</p>
 						<p>{humidity}%</p>
 					</div>
 					<div className="flex justify-between w-3/5">
-						<p>Feels Like</p>
+						<UilTemperature
+							size={25}
+							className="sm:hidden"
+						/>
+						<p className="hidden sm:flex">
+							Feels Like
+						</p>
 						<p>{Math.round(feels_like)}°</p>
 					</div>
 					<div className="flex justify-between w-3/5">
-						<p>Wind</p>
+						<UilWind
+							size={25}
+							className="sm:hidden"
+						/>
+						<p className="hidden sm:flex">
+							Wind
+						</p>
 						<p>
 							{Math.round(speed)}{' '}
 							{speedUnit}

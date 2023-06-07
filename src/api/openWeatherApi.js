@@ -71,7 +71,7 @@ const formatForecastWeather = (data) => {
 
 	// console.log(`formatForecastWeather`, data.list.slice(1, 6));
 
-	hourly = data.list.slice(0, 6).map((d) => {
+	hourly = data.list.slice(0, 5).map((d) => {
 		return {
 			day: formatToLocalTime(d.dt, timezone, 'ccc'),
 			time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
@@ -89,7 +89,8 @@ const formatForecastWeather = (data) => {
 const formatToLocalTime = (
 	secs,
 	timezone,
-	format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
+	// format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
+	format = "cccc, LLL d' | 'hh:mm a"
 ) => DateTime.fromSeconds(secs).setZone(timezone).toFormat(format);
 
 const fetchWeatherApi = async (weatherType, searchParams) => {

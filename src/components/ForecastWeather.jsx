@@ -3,11 +3,12 @@ import { fetchIconCode } from '../api/openWeatherApi';
 const ForecastWeather = ({ items }) => {
 	return (
 		<>
-			<div className="flex flex-row items-center justify-between gap-5 p-5 text-white">
+			<div className="flex flex-col sm:flex-row items-center justify-center p-5 text-white">
 				{items.map((item, i) => (
 					<div
+						id="forecastCard"
 						key={i}
-						className="flex flex-col p-5 rounded-xl items-center bg-gray-700"
+						className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-xl justify-between items-center p-5 m-2 bg-slate-200"
 					>
 						<p className="font-light text-sm">
 							{item.time}

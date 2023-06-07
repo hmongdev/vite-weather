@@ -10,13 +10,11 @@ const geoApiOptions = {
 };
 
 export const loadOptions = async (searchQuery, loadedOptions) => {
-	//request
 	const response = await fetch(
 		`${GEO_API_URL}/cities?namePrefix=${searchQuery}&offset=${loadedOptions.length}&sort=name`,
 		geoApiOptions
 	).then((res) => res.json());
 
-	//return
 	return {
 		options: response.data.map((city) => ({
 			lat: city.latitude,
