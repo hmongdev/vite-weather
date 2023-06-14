@@ -19,17 +19,15 @@ const App = () => {
 
 	//location
 	const handleLocation = () => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				let lat = position.coords.latitude;
-				let lon = position.coords.longitude;
+		navigator.geolocation.getCurrentPosition((position) => {
+			let lat = position.coords.latitude;
+			let lon = position.coords.longitude;
 
-				setLocation({
-					lat,
-					lon,
-				});
+			setLocation({
+				lat,
+				lon,
 			});
-		}
+		});
 		fetchWeather();
 	};
 
@@ -53,7 +51,8 @@ const App = () => {
 	};
 
 	console.log(`weather`, weather);
-	// console.log(`location`, location);
+	console.log(`location`, location);
+	// console.log(`env.VITE_API_KEY`, env.VITE_API_KEY);
 
 	return (
 		<div

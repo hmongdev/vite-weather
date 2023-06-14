@@ -8,13 +8,14 @@
 // https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
 
 import { DateTime } from 'luxon';
-const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
-const OPEN_API_KEY = 'b601b84d0e7ce5864247288c5731f8ae';
+const OPEN_API_URL = 'https://api.openweathermap.org/data/3.0';
+const OPEN_API_KEY = import.meta.env.VITE_API_KEY;
 
 const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
 
-	// console.log(`searchParams`, searchParams);
+	console.log(`searchParams`, searchParams);
+	// console.log(`OPEN_API_KEY`, OPEN_API_KEY);
 
 	url.search = new URLSearchParams({
 		...searchParams,
@@ -29,7 +30,7 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 
 const fetchFinalWeatherData = async (searchParams) => {
 	//weather call
-	const finalCurrentWeather = await fetchWeatherApi('weather', {
+	const finalCurrentWeather = await fetchWeatherApi('onecall', {
 		lat: searchParams.lat,
 		lon: searchParams.lon,
 		units: searchParams.units,
