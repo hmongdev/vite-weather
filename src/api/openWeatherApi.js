@@ -7,15 +7,15 @@
 // forecast
 // https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
 
+// onecall
+// https://api.openweathermap.org/data/3.0/onecall?lat=44.89049462116981&lon=-93.55155863912226&exclude=minutely&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
+
 import { DateTime } from 'luxon';
-const OPEN_API_URL = 'https://api.openweathermap.org/data/3.0';
+const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_API_KEY = import.meta.env.VITE_API_KEY;
 
 const fetchWeatherApi = async (weatherType, searchParams) => {
 	const url = new URL(`${OPEN_API_URL}/${weatherType}`);
-
-	console.log(`searchParams`, searchParams);
-	// console.log(`OPEN_API_KEY`, OPEN_API_KEY);
 
 	url.search = new URLSearchParams({
 		...searchParams,
@@ -25,12 +25,14 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 
 	// console.log(`url`, url);
 
+	// console.log(`searchParams`, searchParams);
 	return await fetch(url).then((res) => res.json());
 };
 
 const fetchFinalWeatherData = async (searchParams) => {
+	// console.log(`searchParams.lat`, searchParams.lat);
 	//weather call
-	const finalCurrentWeather = await fetchWeatherApi('onecall', {
+	const finalCurrentWeather = await fetchWeatherApi('weather', {
 		lat: searchParams.lat,
 		lon: searchParams.lon,
 		units: searchParams.units,
@@ -40,9 +42,10 @@ const fetchFinalWeatherData = async (searchParams) => {
 
 	const { lat, lon } = finalCurrentWeather;
 
-	const finalForecastWeather = await fetchWeatherApi('forecast', {
+	const finalForecastWeather = await fetchWeatherApi('onecall', {
 		lat,
 		lon,
+		exclude: 'current,minutely',
 		units: searchParams.units,
 	}).then(formatForecastWeather);
 
@@ -50,7 +53,7 @@ const fetchFinalWeatherData = async (searchParams) => {
 };
 
 const formatCurrentWeather = (data) => {
-	// console.log(`data`, data);
+	console.log(`data`, data);
 	const {
 		coord: { lat, lon },
 		name: weatherCityName,
@@ -86,13 +89,13 @@ const formatCurrentWeather = (data) => {
 const formatForecastWeather = (data) => {
 	let { timezone, hourly } = data;
 
-	console.log(`formatForecastWeather`, data.list.slice(1, 6));
+	// console.log(`formatForecastWeather`, hourly.slice(1, 6));
 
-	hourly = data.list.slice(0, 5).map((d) => {
+	hourly = hourly.slice(0, 5).map((d) => {
 		return {
 			day: formatToLocalTime(d.dt, timezone, 'ccc'),
 			time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
-			temp: d.main.feels_like,
+			temp: d.feels_like,
 			icon: d.weather[0].icon,
 		};
 	});

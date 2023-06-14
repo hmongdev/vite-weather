@@ -50,8 +50,8 @@ const App = () => {
 		fetchWeather();
 	};
 
-	console.log(`weather`, weather);
-	console.log(`location`, location);
+	// console.log(`weather`, weather);
+	// console.log(`location`, location);
 	// console.log(`env.VITE_API_KEY`, env.VITE_API_KEY);
 
 	return (
