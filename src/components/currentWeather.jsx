@@ -22,8 +22,8 @@ export const CurrentWeather = ({
 	const [speedUnit, setSpeedUnit] = useState('mph');
 
 	return (
-		<div>
-			<div className="flex w-full text-sm justify-between mx-auto text-gray-400 mb-4">
+		<>
+			<div className="flex w-full text-sm justify-between mx-auto mb-4">
 				<h1>
 					{weatherCityName}, {country}
 				</h1>
@@ -97,7 +97,6 @@ export const CurrentWeather = ({
 					</div>
 				</div>
 			</div>
-			<hr />
-		</div>
+		</>
 	);
 };

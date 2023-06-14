@@ -1,26 +1,38 @@
 import { fetchIconCode } from '../api/openWeatherApi';
+import { UilTear } from '@iconscout/react-unicons';
 
 const ForecastWeather = ({ items }) => {
 	return (
-		<div className="flex flex-col sm:flex-row items-center justify-center p-5 text-white">
+		<div
+			id="forecastContainer"
+			className="flex flex-row items-center text-white min-h-[10rem] rounded-xl overflow-auto shadow-xl"
+		>
 			{items.map((item, i) => (
 				<div
 					id="forecastCard"
 					key={i}
-					className="flex flex-row sm:flex-col min-w-[6.5rem] w-full sm:min-h-[10rem] rounded-2xl justify-between items-center text-lg p-1 m-2 hover:bg-[#121318]"
+					className="flex flex-col gap-2 justify-between items-center text-lg min-w-[3rem] py-5 hover:bg-[#121318]"
 				>
-					<p className="text-center text-lg">
-						{item.day}
-						<br />
+					<p className="text-center text-sm w-full">
 						{item.time}
 					</p>
+					<hr />
 					<img
 						src={fetchIconCode(item.icon)}
 						alt="weather-icon"
-						className="w-1/4"
+						className="w-full"
 					/>
 					<div>
-						<p className="text-xl">{`${item.temp.toFixed()}°`}</p>
+						<p className="text-lg">{`${item.temp.toFixed()}°`}</p>
+					</div>
+					<div className="flex justify-center items-center">
+						<UilTear
+							size={15}
+							className="sm:hidden"
+						/>
+						<p className="text-xs">{`${(
+							item.pop * 10
+						).toFixed()}%`}</p>
 					</div>
 				</div>
 			))}

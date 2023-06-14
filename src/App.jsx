@@ -8,7 +8,17 @@ import ForecastWeather from './components/ForecastWeather';
 const App = () => {
 	const [units, setUnits] = useState('imperial');
 	const [weather, setWeather] = useState(false);
-	const [location, setLocation] = useState(undefined);
+	const [location, setLocation] = useState(null);
+
+	function formatBackground() {
+		if (!weather) return `from-violet-900 to-purple-300`;
+		const threshold = units === 'metric' ? 20 : 60;
+		if (weather.temp <= threshold) {
+			return 'from-cyan-600 to-blue-200';
+		} else {
+			return 'from-yellow-600 to-orange-200';
+		}
+	}
 
 	const fetchWeather = () => {
 		fetchFinalWeatherData({
@@ -20,8 +30,8 @@ const App = () => {
 	//location
 	const handleLocation = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
-			let lat = position.coords.latitude;
-			let lon = position.coords.longitude;
+			const { latitude: lat, longitude: lon } =
+				position.coords;
 
 			setLocation({
 				lat,
@@ -52,12 +62,11 @@ const App = () => {
 
 	// console.log(`weather`, weather);
 	// console.log(`location`, location);
-	// console.log(`env.VITE_API_KEY`, env.VITE_API_KEY);
 
 	return (
 		<div
 			id="viewPort"
-			className="flex-col justify-center items-center min-w-screen min-h-screen p-5 bg-[#181A20]"
+			className={`flex-col justify-center items-center min-w-screen min-h-screen text-white p-5 bg-gradient-to-b ${formatBackground()}`}
 		>
 			<SearchBar
 				onSelectCity={selectCity}

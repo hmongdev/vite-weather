@@ -7,9 +7,6 @@
 // forecast
 // https://api.openweathermap.org/data/2.5/forecast?q=minneapolis&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
 
-// onecall
-// https://api.openweathermap.org/data/3.0/onecall?lat=44.89049462116981&lon=-93.55155863912226&exclude=minutely&units=imperial&appid=b601b84d0e7ce5864247288c5731f8ae
-
 import { DateTime } from 'luxon';
 const OPEN_API_URL = 'https://api.openweathermap.org/data/2.5';
 const OPEN_API_KEY = import.meta.env.VITE_API_KEY;
@@ -24,7 +21,6 @@ const fetchWeatherApi = async (weatherType, searchParams) => {
 	});
 
 	// console.log(`url`, url);
-
 	// console.log(`searchParams`, searchParams);
 	return await fetch(url).then((res) => res.json());
 };
@@ -55,7 +51,7 @@ const fetchFinalWeatherData = async (searchParams) => {
 const formatCurrentWeather = (data) => {
 	console.log(`data`, data);
 	const {
-		coord: { lat, lon },
+		coord: { lon, lat },
 		name: weatherCityName,
 		dt,
 		main: { feels_like, humidity, temp, temp_min, temp_max },
@@ -89,14 +85,17 @@ const formatCurrentWeather = (data) => {
 const formatForecastWeather = (data) => {
 	let { timezone, hourly } = data;
 
-	// console.log(`formatForecastWeather`, hourly.slice(1, 6));
+	// console.log(`formatForecastWeather`, hourly.slice(0, 24));
+	// console.log(`forecastData`, hourly[0].pop);
 
-	hourly = hourly.slice(0, 5).map((d) => {
+	hourly = hourly.slice(0, 25).map((d) => {
 		return {
 			day: formatToLocalTime(d.dt, timezone, 'ccc'),
-			time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
+			// time: formatToLocalTime(d.dt, timezone, 'h:mm a'),
+			time: formatToLocalTime(d.dt, timezone, 'h a'),
 			temp: d.feels_like,
 			icon: d.weather[0].icon,
+			pop: d.pop,
 		};
 	});
 

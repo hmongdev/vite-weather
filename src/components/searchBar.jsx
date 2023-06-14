@@ -43,7 +43,7 @@ const SearchBar = ({ onSelectCity, onLocationChange, setUnits }) => {
 			className="flex gap-3 w-full h-[10%] py-5 justify-center items-center"
 		>
 			<AsyncPaginate
-				className="w-full"
+				className="w-full text-slate-600"
 				isMulti
 				cacheOptions
 				debounceTimeout={500}
