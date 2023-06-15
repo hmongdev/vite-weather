@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import SearchBar from './components/searchBar';
-import { CurrentWeather } from './components/currentWeather';
+import SearchBar from './components/SearchBar';
+import { CurrentWeather } from './components/CurrentWeather';
 import { useState } from 'react';
 import { fetchFinalWeatherData } from './api/openWeatherApi';
-import ForecastWeather from './components/ForecastWeather';
+import HourlyForecast from './components/HourlyForecast';
 
 const App = () => {
 	const [units, setUnits] = useState('imperial');
@@ -76,7 +76,7 @@ const App = () => {
 			{weather && (
 				<>
 					<CurrentWeather weather={weather} />
-					<ForecastWeather
+					<HourlyForecast
 						items={weather.hourly}
 					/>
 				</>
